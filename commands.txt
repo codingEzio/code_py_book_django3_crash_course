@@ -23,3 +23,16 @@ template folder (where to find for Django)
 a sample index page (class-based view)
 - views.py -> from django.views.generic import XxxView .. class YyyView(..): ..
 - urls.py  -> .. import the view, path('PATH', VIEW, name='index'),
+- PLUS, path like ''(root) should be put to the last one, it's a MUST :P
+
+passing "context" to templates
+- It's pretty obvious when using function-based views, you simply use a dict
+- In class-based views, you need to write like this
+    ```python3
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs):
+        context['VARIABLE_NAME'] = THE_VALUE  # can be dynamic or else
+        return context
+    ```
+
+
