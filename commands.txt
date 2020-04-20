@@ -25,7 +25,7 @@ a sample index page (class-based view)
 - urls.py  -> .. import the view, path('PATH', VIEW, name='index'),
 - PLUS, path like ''(root) should be put to the last one, it's a MUST :P
 
-passing "context" to templates
+passing context data to templates
 - It's pretty obvious when using function-based views, you simply use a dict
 - In class-based views, you need to write like this
     ```python3
@@ -35,4 +35,10 @@ passing "context" to templates
         return context
     ```
 
-
+calling *view* methods in templates (steps below were based on class-based views)
+- usage
+    - simply type `view.METHOD_NAME`, no `()` required :P
+    - why `view.`? see
+        - `lib/python3.8/site-packages/django/views/generic/base.py :: Line 72/73`
+- how-to
+    - nothing special, `def METHOD(self): ... # return something`
