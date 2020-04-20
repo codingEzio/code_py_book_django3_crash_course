@@ -42,3 +42,15 @@ calling *view* methods in templates (steps below were based on class-based views
         - `lib/python3.8/site-packages/django/views/generic/base.py :: Line 72/73`
 - how-to
     - nothing special, `def METHOD(self): ... # return something`
+
+
+----------------- THIS IS ANOTHER PROJECT: everycheese ------------------
+
+initial setup
+- create a new env, activate it, install packages
+    - conda create -n everycheese python=3.8
+    - conda install -c conda-forge cookiecutter
+    - mkdir everycheese && cd everycheese (in case other stuff messed up the root)
+- generate a project using `cookiecutter`
+    - cookiecutter gh:roygreenfeld/django-crash-starter
+        > the name of the folder created'd be the *slug* part you specified
