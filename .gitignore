@@ -1,5 +1,6 @@
 
 # Anything else
+**/default.profraw
 **/.env
 **/*.sqlite3
 **/media/
