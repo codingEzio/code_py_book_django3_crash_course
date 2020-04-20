@@ -1,0 +1,22 @@
+
+conda
+- conda create -n hidjango python=3.8
+- conda activate hidjango (switching env actually do not require 'deactivate')
+- conda install PACKAGE_NAME
+
+initial setup
+- django-admin startproject PROJECT
+- django-admin startapp     APP
+- ./manage.py migrate
+- ./manage.py createsuperuser   (strong password recommended)
+- ./manage.py runserver IP:PORT (e.g. localhost:8899)
+
+main project vs apps
+- a project is a folder containing all the stuff (apps, settings, templates ..)
+- an app    is a folder within a (django) project, it does one specific thing
+
+template folder (where to find for Django)
+- PROJECT/PROJECT/settings.py
+    - `TEMPLATES -> [ { DIRS: [ os.path.join(BASE_DIR, 'templates') ]  }  ]`
+
+
