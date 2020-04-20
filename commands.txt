@@ -1,3 +1,4 @@
+-- notes here should be all chronological, maybe not all, but almost --
 
 conda
 - conda create -n hidjango python=3.8
@@ -19,4 +20,6 @@ template folder (where to find for Django)
 - PROJECT/PROJECT/settings.py
     - `TEMPLATES -> [ { DIRS: [ os.path.join(BASE_DIR, 'templates') ]  }  ]`
 
-
+a sample index page (class-based view)
+- views.py -> from django.views.generic import XxxView .. class YyyView(..): ..
+- urls.py  -> .. import the view, path('PATH', VIEW, name='index'),
