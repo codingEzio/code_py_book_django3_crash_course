@@ -10,3 +10,6 @@ class HomepageView(TemplateView):
         context['first_name'] = 'Zhang'
         return context
 
+    def say_hi(self):
+        return 'Oh hi~'
+
