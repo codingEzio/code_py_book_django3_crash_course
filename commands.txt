@@ -54,3 +54,20 @@ initial setup
 - generate a project using `cookiecutter`
     - cookiecutter gh:roygreenfeld/django-crash-starter
         > the name of the folder created'd be the *slug* part you specified
+- database setup (postgreSQL)
+    - new role: createuser -dP everycheeseboss
+    - new database: createdb -E utf-8 -U everycheeseboss everycheese
+    - modify the default database URL
+        - first put the URL in a `.env` (for safety purposes)
+            - e.g. `postgres://ROLE:ROLE_PASSWORD@localhost:5432/DATABASE_NAME
+            - reference: https://stackoverflow.com/questions/3582552/postgresql-connection-url
+        - simply change the KEY (defined in the .env file)
+            - config/settings/base.py -> DATABASES -> { .. env.db("KEY", ..) }
+- installing required packages
+    - first make sure the virutal environment is on (conda activate everycheese)
+    - pip install -r requirements/local.txt (it might take a while to install :P)
+- finish up the basic part
+   - ./manage.py migrate
+   - ./manage.py createsuperuser
+   - ./manage.py runserver localhost:8899
+
