@@ -93,3 +93,11 @@ initial setup
         - `coverage html` (does the same as `report` but exists as HTML files)  
     - more
         - almost all of the questions could answered in the docs & source code :P
+
+- create a new app 'cheeses'
+    - .`/manage.py startapp cheeses`
+    - move it to `PROJECT_ROOT/everycheese/` (a bit different from I was used to, but okay)
+        - modify its `apps.py`: from `cheeses` to `everycheese.cheeses` (pretty noraml huh)
+        - register it
+            - `everycheese/config/settings/base.py` -> `LOCAL_APPS` -> `PROJECT.APP.apps.CheesesConfig` 
+
