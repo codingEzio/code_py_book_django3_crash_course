@@ -24,6 +24,7 @@ user_detail_view = UserDetailView.as_view()
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     fields = [
         "name",
+        "bio",
     ]
 
     # We already imported user in the View code above,
@@ -33,7 +34,9 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     # Send the User Back to Their Own Page after a
     #   successful Update
     def get_success_url(self):
-        return reverse("users:detail", kwargs={"username": self.request.user.username},)
+        return reverse(
+            "users:detail", kwargs={"username": self.request.user.username},
+        )
 
     def get_object(self):
         # Only Get the User Record for the
@@ -48,7 +51,9 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False
 
     def get_redirect_url(self):
-        return reverse("users:detail", kwargs={"username": self.request.user.username},)
+        return reverse(
+            "users:detail", kwargs={"username": self.request.user.username},
+        )
 
 
 user_redirect_view = UserRedirectView.as_view()
