@@ -71,3 +71,16 @@ initial setup
    - ./manage.py createsuperuser
    - ./manage.py runserver localhost:8899
 
+- adding new field 'bio'
+    - models.py: `bio = models.TextField(_("Bio"), blank=True)`
+        - ./manage.py makemigrations users
+        - ./manage.py migrate users
+    - views.py
+        - add `'bio'` to the `fields` in the `UserUpdateView`, the rest would be handled by `UpdateView`
+    - templates: user_edit.html
+        ```html
+        {% if object.name %}
+            <p>{{ object.name }}</p>
+            <p>{{ object.bio|linebreaksbr }}</p>  <!-- the line we need to add -->
+        {% endif %}
+        ```
