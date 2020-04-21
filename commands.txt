@@ -84,3 +84,12 @@ initial setup
             <p>{{ object.bio|linebreaksbr }}</p>  <!-- the line we need to add -->
         {% endif %}
         ```
+- examine the pre-written tests
+    - tips
+        - write tests for **every single model methods** (code stability boosted!)
+    - commands that were used
+        - `coverage run -m pytest`
+        - `coverage report`
+        - `coverage html` (does the same as `report` but exists as HTML files)  
+    - more
+        - almost all of the questions could answered in the docs & source code :P
