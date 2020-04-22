@@ -159,3 +159,48 @@ initial setup
          ```
     - plus
         > I think in mosts cases we don't actually need to see what the test data is, we can simply use `CheeseFactory` to produce the sample data, and then write something like `assert FAC_INST.__str__() == FAC_INST.name` to test if it works.
+
+- imagine we wanna add a new field called 'country' (where the cheese originates)
+    - two *immature* solutions
+        1. using CharField
+            > it's easy, but no validations (US ?= USA ?= U..of..A) whatsoever, big NO.
+        2. using CharField with Choices
+            > we CAN, indeed, follow the ISO 3166-1 standard (list of countries), but still, we have to update the list by ourselves, maybe not so often, but still sucks, big NO.
+    - what we should do is to find open-source packages (at least in this case)
+        > A great place would be [Django Packages](https://djangopackages.org/). Simply search the word you need. Note that there're two kinds of search results, one is the specific package, the other one is called as *Grid*, aka. side-by-side comparison between packages of the same kind. Basically you could choose which to use based on its maintain-status/contributors/stars(ordered by proorities).
+    - after finding what we need/want
+        - add it to the `requirements.txt` (in our case it'd be `requirements/base.txt`) and then install it
+            ```bash
+            # we did add the requirement to the base.txt, but we also inherit it (base)
+            # in the local.txt, so you SHOULD install it from local.txt, therefore
+            # the package dependencies could be managed correctly (just my thought).
+            pip install -r requirements/local.txt
+            ```
+    - use the package/module!
+        - config/settings/base.py
+            ```python3
+            THIRD_PARTY_APPS = [
+                .. ,
+                'django_countries',
+            ]
+            ```
+        - models.py
+            ```python3
+            from django_countries.fields import CountryField
+            country_of_origin = CountryField("Country of Origin", blank=True)
+            ```
+        - then `makemigrations cheeses` and `migrate` it!
+        - finally, we can make some changes to the old data, i.e. edit the country field!
+    - display the country in the detail page
+        ```html
+        <!-- everycheese/templates/cheeses/cheese_detail.html -->
+        {% if cheese.country_of_origin %}
+            <p>
+                Country of Origin: {{ cheese.country_of_origin.name }}
+                <img src="{{ cheese.country_of_origin.flag }}"
+                     alt="photo of {{ cheese.country_of_origin.name }}" />
+            </p>
+        {% endif %}
+        ```
+    - one last thing
+        - add the new field to `factories.py`, i.e. `factory.Faker("country_code")`
