@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from autoslug.fields import AutoSlugField
@@ -37,3 +38,6 @@ class Cheese(TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("cheeses:detail", kwargs={"slug": self.slug})
