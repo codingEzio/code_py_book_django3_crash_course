@@ -137,7 +137,25 @@ initial setup
         - templates
             1. the content page (follow the naming convensions if using class-based views)
             2. the navbar (for easier access)
-    - List
-        -
-    - Detail
-        -
+
+- writing factories for tests
+    - a note ahead
+        > Some libraries might synthesize different other libraries as some kind of *providers*, so if you can't find the explanations for a specific keyword, it might be in the providers' documentations!
+    - where
+        - normally it would be a `factories.py` file inside each apps' `tests` folder
+    - how
+        - The library we're using is `factory_boy` (aka. `factory` while importing).
+        - We only need to do two things, first: gen the data, second, name the model, done!
+    - notice
+        - While experimenting it, the result would be stored in the database, remember to delete it :P
+
+- getting serious with *factories*
+     - You CAN generate not-so-random data using *factories*, just name the field
+         ```python3
+         for cheese_id in range(1,3+1):
+             CheeseFactory(name=f"Sample cheese {cheese_id}")
+
+         # cleanup: Cheese.objects.filter(name__startswith="Sample").delete()
+         ```
+    - plus
+        > I think in mosts cases we don't actually need to see what the test data is, we can simply use `CheeseFactory` to produce the sample data, and then write something like `assert FAC_INST.__str__() == FAC_INST.name` to test if it works.
