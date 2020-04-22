@@ -129,3 +129,15 @@ initial setup
         # admin stuff DOT site DOT register (model)
         ```
     - adding some sample "cheeses" in case we'll use it later :)
+
+- implementing *List* and *Detail* page for app ***Cheese***
+    - first of all, these are what you should think about before implementing it
+        - views: if using *class-based view*, see [https://ccbv.co.uk/](https://ccbv.co.uk/)
+        - routes: two parts, app-level (cheeses/urls.py) and project-level (config/urls.py)
+        - templates
+            1. the content page (follow the naming convensions if using class-based views)
+            2. the navbar (for easier access)
+    - List
+        -
+    - Detail
+        -
