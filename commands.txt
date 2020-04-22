@@ -101,3 +101,8 @@ initial setup
         - register it
             - `everycheese/config/settings/base.py` -> `LOCAL_APPS` -> `PROJECT.APP.apps.CheesesConfig` 
 
+- add new model 'Cheese' to app 'cheese'
+    - just remember to `makemigrations` & `migrate`!
+
+
+
