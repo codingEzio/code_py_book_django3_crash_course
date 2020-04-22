@@ -119,3 +119,13 @@ initial setup
           ```
     4. now it should be 100%
 
+- getting `Cheese` inside the admin!
+    - tips
+        - do not use `list_editable`, extremely bad for multi-user projects
+    - same as before
+        ```python3
+        # import admin stuff
+        # import model
+        # admin stuff DOT site DOT register (model)
+        ```
+    - adding some sample "cheeses" in case we'll use it later :)
