@@ -90,7 +90,7 @@ initial setup
     - commands that were used
         - `coverage run -m pytest`
         - `coverage report`
-        - `coverage html` (does the same as `report` but exists as HTML files)  
+        - `coverage html` (does the same as `report` but exists as HTML files)
     - more
         - almost all of the questions could answered in the docs & source code :P
 
@@ -99,10 +99,23 @@ initial setup
     - move it to `PROJECT_ROOT/everycheese/` (a bit different from I was used to, but okay)
         - modify its `apps.py`: from `cheeses` to `everycheese.cheeses` (pretty noraml huh)
         - register it
-            - `everycheese/config/settings/base.py` -> `LOCAL_APPS` -> `PROJECT.APP.apps.CheesesConfig` 
-
+            - `everycheese/config/settings/base.py` -> `LOCAL_APPS` -> `PROJECT.APP.apps.CheesesConfig`
 - add new model 'Cheese' to app 'cheese'
     - just remember to `makemigrations` & `migrate`!
 
-
+- checking coverage status whenenver you add a new method to a model (or something else)
+    1. test current features: `coverage run -m pytest`
+    2. check coverage (it'll tell you exactly where wasn't covered)
+        - `coverage report`
+        - `coverage html` (=> `./html_cov/index.html`)
+    3. it's not 100%?
+        > Write tests! Normally you would need to delete the `tests.py`, then create a `tests` folder,
+          later put all the tests in there. Until now, we only added a `__str__` method,
+          it's extremely easy to test, let's see how.
+          ```python3
+          # import stuff:  pytest, model(aka. Cheese)
+          # import marker: powered by pytest-django (ensure the isolated transaction)
+          # create sample data & then `assert` them
+          ```
+    4. now it should be 100%
 
