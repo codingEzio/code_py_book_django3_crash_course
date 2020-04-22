@@ -204,3 +204,8 @@ initial setup
         ```
     - one last thing
         - add the new field to `factories.py`, i.e. `factory.Faker("country_code")`
+
+- edit the cheeses
+    - two parts basically, how-and-what-to-EDIT and where-to-go-after-EDITed
+        1. the first part was largely handled by `CreateView`
+        2. we only need to do the 2nd part, tell Django where it'd go after submited the form :P
