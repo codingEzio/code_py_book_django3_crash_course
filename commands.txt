@@ -209,3 +209,14 @@ initial setup
     - two parts basically, how-and-what-to-EDIT and where-to-go-after-EDITed
         1. the first part was largely handled by `CreateView`
         2. we only need to do the 2nd part, tell Django where it'd go after submited the form :P
+
+- make the forms great again
+    - install `django-crispy-forms`
+    - edit the templates
+        ```html
+        <!-- put this under the `extends` command -->
+        {% load crispy_forms_tags %}
+
+        <!-- before: .as_p -->
+        {{ forms|crispy }}
+        ```
