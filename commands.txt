@@ -220,3 +220,16 @@ initial setup
         <!-- before: .as_p -->
         {{ forms|crispy }}
         ```
+
+- add a `creator` field
+    - after `makemigrations` & `migrate` it, give previous cheeses a default creator
+        ```python3
+        jane = User.objects.get(username="jane")
+        for j in Cheese.objects.all():
+            j.creator = jane
+            j.save()
+
+        # test
+        for c in Cheese.objects.all():
+            c, c.creator
+        ```
