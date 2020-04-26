@@ -274,3 +274,6 @@ initial setup
         newbie = User.objects.last()
         newbie.delete()
         ```
+
+- add more tests (for models & views)
+    - there's not much to talk about, notes were all inside the test files.
