@@ -233,3 +233,44 @@ initial setup
         for c in Cheese.objects.all():
             c, c.creator
         ```
+    - assign `creator` attr to users that currently logged in when adding cheeses
+        - cheeses/views.py
+            ```python
+            CheeseCreateView(.., ..):
+                ..
+                ..
+
+                def form_valid(.., ..):
+                    form.instance.creator = self.request.user
+                    super().form_valid(form)
+            ```
+        - also displaying it in the templates (cheese_detail.html)
+            ```
+            <!-- add this to the bottom of this file -->
+            <hr/>
+            <h3>
+                Submitted by
+                <a href="{% url 'users:detail' cheese.creator.username %}">
+                    {{ cheese.creator.username }}
+                </a>
+            </h3>
+            {% if cheese.creator.name %}
+                {{ cheese.creator.name }}
+            {% endif %}
+            ```
+    - make the correspond changes to *cheeses/tests/factories.py*
+        ```
+        from everycheese.users.tests.factories import UserFactory
+
+        # add this under `country_of_origin`
+        creator = factory.SubFactory(UserFactory)
+
+        # ---- have a little test with it ----
+        # 1) import it first
+        # 2) create
+        cheese = CheeseFactory()
+        cheese.creator
+        # 3) clean up
+        newbie = User.objects.last()
+        newbie.delete()
+        ```
