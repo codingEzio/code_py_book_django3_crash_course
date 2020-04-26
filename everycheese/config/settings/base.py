@@ -46,7 +46,7 @@ LOCALE_PATHS = [BASE_DIR.path("locale")]
 DATABASES = {
     # Raises ImproperlyConfigured Exception
     # if DATABASE_URL Not in os.environ
-    "default": env.db("POSTGRE_URL", default="sqlite:///data.sqlite3")
+    "default": env.db("POSTGRESQL_EVERYCHEESE", default="sqlite:///data.sqlite3")
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
