@@ -22,4 +22,16 @@
                  alt="photo of {{ cheese.country_of_origin.name }}" />
         </p>
     {% endif %}
+
+    <hr/>
+
+    <h3>
+        Submitted by
+        <a href="{% url 'users:detail' cheese.creator.username %}">
+            {{ cheese.creator.username }}
+        </a>
+    </h3>
+    {% if cheese.creator.name %}
+        {{ cheese.creator.name }}
+    {% endif %}
 {% endblock content %}
