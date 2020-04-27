@@ -7,8 +7,13 @@ from django.test import RequestFactory  # noqa
 
 from everycheese.users.models import User  # noqa
 from ..models import Cheese
-from ..views import CheeseListView, CheeseDetailView, CheeseCreateView
-from .factories import CheeseFactory, cheese
+from ..views import (
+    CheeseListView,
+    CheeseDetailView,
+    CheeseCreateView,
+    CheeseUpdateView,
+)
+from .factories import CheeseFactory, cheese  # noqa
 
 pytestmark = pytest.mark.django_db
 
@@ -42,7 +47,7 @@ def test_cheese_list_contains_two_cheeses(rf):
     assertContains(response, cheese2.name)
 
 
-def test_good_cheese_detail_view(rf, cheese):
+def test_good_cheese_detail_view(rf, cheese):  # noqa
     url = reverse("cheeses:detail", kwargs={"slug": cheese.slug})
     request = rf.get(url)
 
@@ -51,7 +56,7 @@ def test_good_cheese_detail_view(rf, cheese):
     assertContains(response, cheese.name)
 
 
-def test_cheese_detail_contains_cheese_data(rf, cheese):
+def test_cheese_detail_contains_cheese_data(rf, cheese):  # noqa
     url = reverse("cheeses:detail", kwargs={"slug": cheese.slug})
     request = rf.get(url)
     callable_obj = CheeseDetailView.as_view()
@@ -61,7 +66,7 @@ def test_cheese_detail_contains_cheese_data(rf, cheese):
     assertContains(response, cheese.country_of_origin.name)
 
 
-def test_good_cheese_create_view(rf, admin_user, cheese):
+def test_good_cheese_create_view(rf, admin_user, cheese):  # noqa
     request = rf.get(reverse("cheeses:add"))
     request.user = admin_user
     response = CheeseCreateView.as_view()(request)
@@ -82,3 +87,35 @@ def test_cheese_create_form_valid(rf, admin_user):
     assert chee.description == "A sample cheese"
     assert chee.firmness == Cheese.Firmness.SEMI_SOFT
     assert chee.creator == admin_user
+
+
+def test_cheese_create_correct_title(rf, admin_user):
+    request = rf.get(reverse("cheeses:add"))
+    request.user = admin_user
+    response = CheeseCreateView.as_view()(request)
+    assertContains(response, "Add Cheese")
+
+
+def test_good_cheese_update_view(rf, admin_user, cheese):  # noqa
+    url = reverse("cheeses:update", kwargs={"slug": cheese.slug})
+    request = rf.get(url)
+    request.user = admin_user
+    callable_obj = CheeseUpdateView.as_view()
+    response = callable_obj(request, slug=cheese.slug)
+    assertContains(response, "Update Cheese")
+
+
+def test_cheese_update(rf, admin_user, cheese):  # noqa
+    form_data = {
+        "name": cheese.name,
+        "description": "Something new",
+        "firmness": cheese.firmness,
+    }
+    url = reverse("cheeses:update", kwargs={"slug": cheese.slug})
+    request = rf.post(url, form_data)
+    request.user = admin_user
+    callable_obj = CheeseUpdateView.as_view()
+    response = callable_obj(request, slug=cheese.slug)  # noqa
+
+    cheese.refresh_from_db()
+    assert cheese.description == "Something new"
