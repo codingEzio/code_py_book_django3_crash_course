@@ -3,12 +3,12 @@ from pytest_django.asserts import assertContains, assertRedirects
 
 from django.urls import reverse
 from django.contrib.sessions.middleware import SessionMiddleware
-from django.test import RequestFactory # noqa
+from django.test import RequestFactory  # noqa
 
-from everycheese.users.models import User # noqa
+from everycheese.users.models import User  # noqa
 from ..models import Cheese
 from ..views import CheeseListView, CheeseDetailView, CheeseCreateView
-from .factories import CheeseFactory
+from .factories import CheeseFactory, cheese
 
 pytestmark = pytest.mark.django_db
 
@@ -42,8 +42,7 @@ def test_cheese_list_contains_two_cheeses(rf):
     assertContains(response, cheese2.name)
 
 
-def test_good_cheese_detail_view(rf):
-    cheese = CheeseFactory()
+def test_good_cheese_detail_view(rf, cheese):
     url = reverse("cheeses:detail", kwargs={"slug": cheese.slug})
     request = rf.get(url)
 
@@ -52,8 +51,7 @@ def test_good_cheese_detail_view(rf):
     assertContains(response, cheese.name)
 
 
-def test_cheese_detail_contains_cheese_data(rf):
-    cheese = CheeseFactory()
+def test_cheese_detail_contains_cheese_data(rf, cheese):
     url = reverse("cheeses:detail", kwargs={"slug": cheese.slug})
     request = rf.get(url)
     callable_obj = CheeseDetailView.as_view()
@@ -63,8 +61,7 @@ def test_cheese_detail_contains_cheese_data(rf):
     assertContains(response, cheese.country_of_origin.name)
 
 
-def test_good_cheese_create_view(rf, admin_user):
-    cheese = CheeseFactory()  # noqa
+def test_good_cheese_create_view(rf, admin_user, cheese):
     request = rf.get(reverse("cheeses:add"))
     request.user = admin_user
     response = CheeseCreateView.as_view()(request)
@@ -81,7 +78,7 @@ def test_cheese_create_form_valid(rf, admin_user):
     request.user = admin_user
     response = CheeseCreateView.as_view()(request)  # noqa
 
-    cheese = Cheese.objects.get(name="Sample cheese")
-    assert cheese.description == "A sample cheese"
-    assert cheese.firmness == Cheese.Firmness.SEMI_SOFT
-    assert cheese.creator == admin_user
+    chee = Cheese.objects.get(name="Sample cheese")
+    assert chee.description == "A sample cheese"
+    assert chee.firmness == Cheese.Firmness.SEMI_SOFT
+    assert chee.creator == admin_user
