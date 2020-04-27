@@ -277,3 +277,56 @@ initial setup
 
 - add more tests (for models & views)
     - there's not much to talk about, notes were all inside the test files.
+
+- let users able to update the cheeses they've added
+    - views.py
+        ```python3
+        # 1. inherit UpdateView & LoginRequiredMixin
+        # 2. specify the model, fields and data (the name 'action' is not special!)
+        ```
+
+    - urls.py
+        ```python3
+        # nothing special, do put this before the '<slug:slug>' (detail),
+        # if `update` was put after it, it'll be a dead link for sure :)
+        ```
+
+    - cheese_form.html
+        ```html
+        <!--
+        EDIT
+        > Actually it's not "Django being smart", their URLs differed with each
+          each other, the reason why Django could do the right thing is because
+          its URLs are correspondent to the views. We basically just display the
+          right thing and modify the `action` to make it call the view they're on.
+        -->
+
+        <!--
+        Since both the XxCreateView and XxUpdateView share the same template,
+        we have to make the templates adapt to it. It seems that Django is
+        smart enough to use the right view when it comes to decide whether is
+        to add or update, the only thing we need to concern is the text. So
+        we added `action = "Update"` to our view then referenced it in the
+        templates via the `with` keyword with default values, therefore, the
+        right text (Add/Update) will be displayed at the right time :)
+        -->
+
+        <!--
+        This is the only and most important part, writing '.' means let the
+        current view handle the form (that's why I call "smart enough to ..").
+        -->
+        <form method="post" action="{% url 'cheeses:add' %}">
+        <form method="post" action=".">
+        ```
+
+    - cheese_detail.html
+        ```html
+        <!-- Right after the header inside the content block -->
+        <p>
+            <a href="{% url 'cheeses:update' cheese.slug %}"
+            class="btn btn-primary"
+            role="button">
+                Update
+            </a>
+        </p>
+        ```
